@@ -15,6 +15,11 @@ public static class Repository
         .ThenInclude(p => p.Complex)
         .SingleAsync(p => p.Id == id);
 
+    public static async Task<ParentModel> GetChildren(this DataContext db, int id) =>
+        await db.Parents
+        .Include(p => p.Children)
+        .SingleAsync();
+
     public static async Task<ChildModel> LoadDirectly(this DataContext db, int id) =>
         await db.Children.SingleAsync(c => c.Id == id);
 }

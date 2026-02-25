@@ -19,13 +19,13 @@ modelBuilder.Entity<ChildModel>()
 If all of the following are true:
 
 - The parent is the target of the dbContext query
-- A child is included with a where predicate
+- A child is included (with or without a where predicate)
 - The child's Complex property has null for its DateOnly property
 
 Like so:
 ```
 await db.Parents
-.Include(p => p.Children.Where(c => c.Date == asOfDate))
+.Include(p => p.Children)
 .SingleAsync(p => p.Id == id);
 ```
 
@@ -36,6 +36,6 @@ await db.Parents
 
 Go to `Tests.cs` and change your connection string to one appropriate for your setup. (I used npgsql because I have postgres installed, but you may want to modify the code to support Sql Server instead.)
 
-Run `dotnet test .\EfCoreBug.csproj` to see the failing test `ComplexObject_OnlyProperty_HasNullValue_WorksIn9_FailsIn10`.
+Run `dotnet test .\EfCoreBug.csproj` to see the failing tests `ComplexObject_OnlyProperty_HasNullValue_WorksIn9_FailsIn10_{}`.
 
 Run `dotnet test .\EfCoreBug.csproj -c EF9` to see the test pass.
