@@ -52,6 +52,9 @@ public class ChildModel
     public int Value { get; private set; }
     public ComplexModel Complex { get; private set; }
 
+    // Workarounds like a protected parameterless constructor that only news the complex property does not help
+    //protected ChildModel() { Complex = new(); }
+
     public ChildModel(DateOnly date, int value) 
     {
         Complex = new();
@@ -84,7 +87,7 @@ public class ChildModel
 }
 
 /// <summary>
-/// An object that can be attached to many models and assists with figuring out whether the model is copied or original
+/// An object that can be attached to many models and assists with figuring out whether the model is copied or original.
 /// </summary>
 public class ComplexModel
 {
